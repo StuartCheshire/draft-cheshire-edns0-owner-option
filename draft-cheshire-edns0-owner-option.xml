@@ -1,293 +1,252 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE rfc SYSTEM 'rfcXXXX.dtd'
-	[
-    <!ENTITY rfc2119 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
-    <!ENTITY rfc2136 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2136.xml'>
-    <!ENTITY rfc2671 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2671.xml'>
-    <!ENTITY rfc3007 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3007.xml'>
-	]>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
 
-<rfc category="std" ipr="trust200902" docName="draft-cheshire-edns0-owner-option-00.txt">
+<rfc category="std" ipr="trust200902" docName="draft-cheshire-edns0-owner-option-01.txt">
 
 <?rfc symrefs="yes"?> <!-- Use named instead of numbered references -->
 <?rfc compact="yes"?> <!-- Don't do a forced page break before each new section -->
 
 <front>
-	<title>EDNS0 OWNER Option</title>
+    <title>EDNS0 OWNER Option</title>
 
-	<author initials='S.D.' surname='Cheshire' fullname='Stuart Cheshire'>
-		<organization>Apple Inc.</organization>
-		<address>
-			<postal>
-				<street>1 Infinite Loop</street>
-				<city>Cupertino</city>
-				<region>California</region>
-				<code>95014</code>
-				<country>USA</country>
-			</postal>
-			<phone>+1 408 974 3207</phone>
-			<email>cheshire@apple.com</email>
-		</address>
-	</author>
+    <author initials='S.D.' surname='Cheshire' fullname='Stuart Cheshire'>
+    <?rfc needLines="30" ?>
+        <organization>Apple Inc.</organization>
+        <address>
+            <postal>
+                <street>1 Infinite Loop</street>
+                <city>Cupertino</city>
+                <region>California</region>
+                <code>95014</code>
+                <country>USA</country>
+            </postal>
+            <phone>+1 408 974 3207</phone>
+            <email>cheshire@apple.com</email>
+        </address>
+    </author>
 
-	<author initials='M.' surname='Krochmal' fullname='Marc Krochmal'>
-		<organization>Apple Inc.</organization>
-		<address>
-			<postal>
-				<street>1 Infinite Loop</street>
-				<city>Cupertino</city>
-				<region>California</region>
-				<code>95014</code>
-				<country>USA</country>
-			</postal>
-			<phone>+1 408 974 4368</phone>
-			<email>marc@apple.com</email>
-		</address>
-	</author>
+    <author initials='M.' surname='Krochmal' fullname='Marc Krochmal'>
+        <organization>Apple Inc.</organization>
+        <address>
+            <postal>
+                <street>1 Infinite Loop</street>
+                <city>Cupertino</city>
+                <region>California</region>
+                <code>95014</code>
+                <country>USA</country>
+            </postal>
+            <phone>+1 408 974 4368</phone>
+            <email>marc@apple.com</email>
+        </address>
+    </author>
 
-	<author initials='R.L.P.' surname='McGuire' fullname='Rory McGuire'>
-		<organization>Apple Inc.</organization>
-		<address>
-			<postal>
-				<street>1 Infinite Loop</street>
-				<city>Cupertino</city>
-				<region>California</region>
-				<code>95014</code>
-				<country>USA</country>
-			</postal>
-			<phone>+1 408 974 1010</phone>
-			<email>@apple.com</email>
-		</address>
-	</author>
+    <date year='2017' month='July' day='2' />
 
-	<date day='6' month='July' year='2009' />
-
-	<abstract>
-		<t>The DNS-SD Sleep Proxy Service
-		uses a message format identical to that used by standard DNS Update,
-		with two additional pieces of information: the identity of the sleeping
-		server to which the records belong, and the Wake-on-LAN Magic Packet
-		bit pattern which should be used to wake the sleeping server. This document
-		specifies the EDNS0 option used to carry that additional information.</t>
-	</abstract>
+    <abstract>
+        <t>The DNS-SD Sleep Proxy Service
+        uses a message format identical to that used by standard DNS Update,
+        with two additional pieces of information: the identity of the sleeping
+        server to which the records belong, and the Wake-on-LAN Magic Packet
+        bit pattern which should be used to wake the sleeping server. This document
+        specifies the EDNS0 option used to carry that additional information.</t>
+    </abstract>
 
 </front>
 
 <middle>
 
-	<section title="Introduction">
-		<t>The EDNS0 'Owner' Option is used by the DNS-SD Sleep Proxy Service.
-		The DNS-SD Sleep Proxy Service <xref target="mDNS"/> <xref target="DNS-SD"/>
-		uses a message format identical to that used by standard DNS Update
-		<xref target="RFC2136"/> <xref target="RFC3007"/>,
-		with two additional pieces of information: the identity of the sleeping
-		server to which the records belong, and the Wake-on-LAN Magic Packet <xref target="WoL"/>
-		bit pattern which should be used to wake the sleeping server. This document
-		specifies the EDNS0 option <xref target="RFC2671"/> used to carry that
-		additional information.</t>
+    <section title="Introduction">
+        <t>The EDNS0 'Owner' Option is used by the DNS-SD Sleep Proxy Service.
+        The DNS-SD Sleep Proxy Service <xref target="RFC6762"/> <xref target="RFC6763"/>
+        uses a message format identical to that used by standard DNS Update
+        <xref target="RFC2136"/> <xref target="RFC3007"/>,
+        with two additional pieces of information: the identity of the sleeping
+        server to which the records belong, and the Wake-on-LAN Magic Packet <xref target="WoL"/>
+        bit pattern which should be used to wake the sleeping server. This document
+        specifies the EDNS0 option <xref target="RFC2671"/> used to carry that
+        additional information.</t>
 
-		<t>The EDNS0 'Owner' Option is specified here with reference to the
-		DNS-SD Sleep Proxy Service, but could also be used for other purposes not
-		related to the Sleep Proxy Service.</t>
-	</section>
+        <t>The EDNS0 'Owner' Option is specified here with reference to the
+        DNS&nbhy;SD Sleep Proxy Service, but could also be used for other purposes not
+        related to the Sleep Proxy Service.</t>
+    </section>
 
-	<section title="Conventions and Terminology Used in this Document">
-		<t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
-		"SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-		and "OPTIONAL" in this document are to be interpreted as
-		described in "Key words for use in RFCs to Indicate
-		Requirement Levels" <xref target="RFC2119"/>.</t>
-	</section>
+    <section title="Conventions and Terminology Used in this Document">
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
+        "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+        "MAY", and "OPTIONAL" in this document are to be interpreted as
+        described in "Key words for use in RFCs to Indicate
+        Requirement Levels" <xref target="RFC2119"/>.</t>
+    </section>
 
-	<section title="EDNS0 'Owner' Option">
-		<t>When a server that supports the DNS-SD Sleep Proxy protocol
-		goes to sleep, it communicates relevant DNS records,
-		which describe its role on the network, to the Sleep Proxy,
-		in one or more DNS Update messages <xref target="RFC2136"/> <xref target="RFC3007"/>.
-		Typically these record registrations with the Sleep Proxy do not last forever;
-		they have a finite lifetime, communicated using EDNS0 option 2 "DNS Update Lease"
-		<xref target="DNS-UL"/>.</t>
+    <section title="EDNS0 'Owner' Option">
+        <t>When a server that supports the DNS-SD Sleep Proxy protocol
+        goes to sleep, it communicates relevant DNS records,
+        which describe its role on the network, to the Sleep Proxy,
+        in one or more DNS Update messages <xref target="RFC2136"/> <xref target="RFC3007"/>.
+        Typically these record registrations with the Sleep Proxy do not last forever;
+        they have a finite lifetime, communicated using EDNS0 option 2 "DNS Update Lease"
+        <xref target="DNS-UL"/>.</t>
 
-		<t>When the Sleep Proxy observes traffic on the network which warrants waking
-		the sleeping server, it does so by sending a Wake-on-LAN "Magic Packet"
-		<xref target="WoL"/>.</t>
+        <t>When the Sleep Proxy observes traffic on the network which warrants waking
+        the sleeping server, it does so by sending a Wake-on-LAN "Magic Packet"
+        <xref target="WoL"/>.</t>
 
-		<t>A Wake-on-LAN "Magic Packet" consists of the following bit-pattern:
-			<list style='symbols'>
-			<t>Sync sequence: 48 binary 1s (i.e. 6 bytes of 0xFF)</t>
-			<t>Sixteen repetitions of the 48-bit MAC address of the sleeping server's network interface</t>
-			<t>Optional 32-bit or 48-bit 'password'</t>
-			</list>
-		</t>
+        <t>A Wake-on-LAN "Magic Packet" consists of the following bit-pattern:
+            <list style='symbols'>
+            <t>Sync sequence: 48 binary 1s (i.e. 6 bytes of 0xFF)</t>
+            <t>Sixteen repetitions of the 48-bit MAC address of the sleeping server's network interface</t>
+            <t>Optional 32-bit or 48-bit 'password'</t>
+            </list>
+        </t>
 
-		<t>When the Sleep Proxy determines that the sleeping server has awoken, it can cease
-		proxying for that server.</t>
+        <t>When the Sleep Proxy determines that the sleeping server has awoken, it can cease
+        proxying for that server.</t>
 
-		<t>The Sleep Proxy needs to know the 48-bit MAC address (and possibly 32-bit or
-		48-bit 'password') to use to wake the sleeping server.</t>
+        <t>The Sleep Proxy needs to know the 48-bit MAC address (and possibly 32-bit or
+        48-bit 'password') to use to wake the sleeping server.</t>
 
-		<t>It also needs a way to
-		determine when the sleeping server has awoken. Because, when a sleeping server
-		wakes it may be attached to the network via a different interface (e.g. 802.11
-		wireless instead of Ethernet), merely observing the source MAC address in the
-		packets it sends may not be sufficient to identify that this server on wireless
-		is the same server that moments earlier went to sleep while attached via
-		Ethernet. Also, merely observing packets apparently originating from the sleeping
-		server may not be sufficient to conclude reliably that it has woken -- since these
-		could be old packets, from before it slept, that were delayed in transit.</t>
+        <t>It also needs a way to
+        determine when the sleeping server has awoken. Because, when a sleeping server
+        wakes it may be attached to the network via a different interface (e.g. 802.11
+        wireless instead of Ethernet), merely observing the source MAC address in the
+        packets it sends may not be sufficient to identify that this server on wireless
+        is the same server that moments earlier went to sleep while attached via
+        Ethernet. Also, merely observing packets apparently originating from the sleeping
+        server may not be sufficient to conclude reliably that it has woken -- since these
+        could be old packets, from before it slept, that were delayed in transit.</t>
 
-		<t>The necessary information is communicated in the EDNS0 'Owner' option:
-			<list style='symbols'>
-			<t>The 48-bit MAC address of the sleeping server's network interface</t>
-			<t>Optional 32-bit or 48-bit 'password'</t>
-			<t>A 48-bit value that uniquely identifies this machine regardless of which
-			interface it is using. Typically the MAC address of the machine's 'primary'
-			interface is used for this purpose.</t>
-			<t>A sleep/wake sequence number. Each time the server wakes and begins
-			a new period of wakefulness, this sequence number is incremented. If the
-			Sleep Proxy observes the server send a packet with the same sleep/wake sequence
-			number as it saw in the proxy registration, this is an old packet delayed in
-			the network and does not constitute evidence that the server has awoken.
-			If the Sleep Proxy observes the server send a packet with a different
-			sleep/wake sequence number then the Sleep Proxy can conclude that the
-			server has awoken and the proxy need not continue answering for it.</t>
-			</list>
-		</t>
+        <t>The necessary information is communicated in the EDNS0 'Owner' option:
+            <list style='symbols'>
+            <t>The 48-bit MAC address of the sleeping server's network interface</t>
+            <t>Optional 32-bit or 48-bit 'password'</t>
+            <t>A 48-bit value that uniquely identifies this machine regardless of which
+            interface it is using. Typically the MAC address of the machine's 'primary'
+            interface is used for this purpose.</t>
+            <t>A sleep/wake sequence number. Each time the server wakes and begins
+            a new period of wakefulness, this sequence number is incremented. If the
+            Sleep Proxy observes the server send a packet with the same sleep/wake sequence
+            number as it saw in the proxy registration, this is an old packet delayed in
+            the network and does not constitute evidence that the server has awoken.
+            If the Sleep Proxy observes the server send a packet with a different
+            sleep/wake sequence number then the Sleep Proxy can conclude that the
+            server has awoken and the proxy need not continue answering for it.</t>
+            </list>
+        </t>
 
-	<section title="EDNS0 'Owner' Option Format">
+    <?rfc needLines="15" ?>
+    <section title="EDNS0 'Owner' Option Format">
 
-		<figure>
-		<preamble>A full EDNS0 'Owner' option has the following format:</preamble>
+        <figure>
+        <preamble>A full EDNS0 'Owner' option has the following format:</preamble>
 <artwork>
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |Opt|Len|V|S|Primary MAC|Wakeup MAC |Password   |
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </artwork>
-		</figure>
+        </figure>
 
-		<t>The two-byte EDNS0 Option code 'Opt' for the 'Owner' option is 4.</t>
-		<t>The two-byte length field 'Len' for this option is 24.</t>
-		<t>The one-byte version field 'V' is currently zero. In the current version of
-		the protocol, senders MUST set this field to zero on transmission, and receivers
-		receiving an EDNS0 option 4 where the version field is not zero MUST ignore
-		the entire option.</t>
-		<t>The one-byte sequence number field 'S' is set to zero the first time this option
-		is used after boot, and then after that incremented each time the machine awakens
-		from sleep.</t>
-		<t>The six-byte Primary MAC field identifies the machine. Typically, the
-		MAC address of the machine's 'primary' interface is used for this purpose.</t>
-		<t>The six-byte pattern to be repeated 16 times in the wakeup packet. This SHOULD
-		be the MAC address of the interface through which the packet containing this
-		'Owner' option is being sent.</t>
-		<t>The six-byte 'password' to be appended after the sixteen repetitions of the MAC address.</t>
+        <t>The two-byte EDNS0 Option code 'Opt' for the 'Owner' option is 4.</t>
+        <t>The two-byte length field 'Len' for this option is 24 in the
+        full-length case, or less when using the "compact" variants described below.</t>
+        <t>The one-byte version field 'V' is currently zero. In the current version of
+        the protocol, senders MUST set this field to zero on transmission, and receivers
+        receiving an EDNS0 option 4 where the version field is not zero MUST ignore
+        the entire option.</t>
+        <t>The one-byte sequence number field 'S' is set to zero the first time this option
+        is used after boot, and then after that incremented each time the machine awakens
+        from sleep.</t>
+        <t>The six-byte Primary MAC field identifies the machine. Typically, the
+        MAC address of the machine's 'primary' interface is used for this purpose.</t>
+        <t>The six-byte pattern to be repeated 16 times in the wakeup packet. This SHOULD
+        be the MAC address of the interface through which the packet containing this
+        'Owner' option is being sent.</t>
+        <t>The six-byte 'password' to be appended after the sixteen repetitions of the MAC address.</t>
 
-	</section>
+    <?rfc needLines="25" ?>
+    </section>
 
-	<section title="Compact EDNS0 'Owner' Option Formats">
+    <section title="Compact EDNS0 'Owner' Option Formats">
 
-		<figure>
-		<preamble>Where the 'password' is only four bytes, a shorter format is used,
-		identified by the length field 'Len' having the value 22:</preamble>
+        <figure>
+        <preamble>Where the 'password' is only four bytes, a shorter format is used,
+        identified by the length field 'Len' having the value 22:</preamble>
 <artwork>
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |Opt|Len|V|S|Primary MAC|Wakeup MAC |Passwd |   (Len = 22)
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </artwork>
-		</figure>
+        </figure>
 
-		<figure>
-		<preamble>When the 'password' is not required, it can be omitted entirely,
-		identified by the length field 'Len' having the value 18:</preamble>
+        <figure>
+        <preamble>When the 'password' is not required, it can be omitted entirely,
+        identified by the length field 'Len' having the value 18:</preamble>
 <artwork>
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    |Opt|Len|V|S|Primary MAC|Wakeup MAC |   (Len = 18)
    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 </artwork>
-		</figure>
+        </figure>
 
-		<figure>
-		<preamble>In the common case where the 'password' is not required and the
-		Primary MAC and Wakeup MAC are the same, both Wakeup MAC and password may
-		be omitted, identified by the length field 'Len' having the value 12:</preamble>
+        <figure>
+        <preamble>In the common case where the 'password' is not required and the
+        Primary MAC and Wakeup MAC are the same, both Wakeup MAC and password may
+        be omitted, identified by the length field 'Len' having the value 12:</preamble>
 <artwork>
    +-+-+-+-+-+-+-+-+-+-+-+-+
    |Opt|Len|V|S|Primary MAC|   (Len = 12)
    +-+-+-+-+-+-+-+-+-+-+-+-+
 </artwork>
-		</figure>
+        </figure>
 
+    <?rfc needLines="30" ?>
+    </section>
 
-	</section>
+    </section>
 
-	</section>
+    <section title="Acknowledgements">
+        <t>Thanks to Rory McGuire for his work Bonjour Sleep Proxy
+        and contributions to this document.</t>
+    </section>
 
-	<section title="Security Considerations">
-		<t>When a Wake-on-LAN Magic Packet is sent to wake a machine up,
-		it is sent in the clear, making it vulnerable to eavesdropping.
-		</t>
-	</section>
+    <section title="Security Considerations">
+        <t>When a Wake-on-LAN Magic Packet is sent to wake a machine up,
+        it is sent in the clear, making it vulnerable to eavesdropping.</t>
+    </section>
 
-	<section title="IANA Considerations">
-		<t>The EDNS0 OPTION CODE 4 has already been assigned for this DNS
-		extension. No additional IANA services are required by this document.
-</t>
-	</section>
+    <section title="IANA Considerations">
+        <t>The EDNS0 OPTION CODE 4 has been assigned for this DNS extension.<vspace />
+        No additional IANA services are required by this document.</t>
+    <?rfc needLines="40" ?>
+    </section>
 
 </middle>
 
 <back>
 
-	<references title='Normative References'>
-	&rfc2119;
-	&rfc2671;
-	</references>
+    <references title='Normative References'>
+    <?rfc include="reference.RFC.2119" ?>
+    <?rfc include="reference.RFC.2671" ?>
+    </references>
 
-	<references title='Informative References'>
+    <references title='Informative References'>
 
-	&rfc2136;
+    <?rfc include="reference.RFC.2136" ?>
+    <?rfc include="reference.RFC.3007" ?>
+    <?rfc include="reference.RFC.6762" ?>
+    <?rfc include="reference.RFC.6763" ?>
+    <?rfc include="reference.I-D.sekar-dns-ul" ?>
 
-	&rfc3007;
+    <reference anchor="WoL" target="">
+        <front>
+        <title>Wake-on-LAN Magic Packet</title>
+        <author><organization /></author>
+        <date month="April" year="1997" />
+        </front>
+    <seriesInfo name='' value='http://en.wikipedia.org/wiki/Wake-on-LAN' />
+    </reference>
 
-	<reference anchor="mDNS" target="">
-		<front>
-		<title>Multicast DNS</title>
-		<author initials="S." surname="Cheshire" fullname="Stuart Cheshire"><organization /></author>
-		<author initials="M." surname="Krochmal" fullname="Marc Krochmal"><organization /></author>
-		<date month="September" year="2008" />
-		</front>
-	<seriesInfo name='Internet-Draft' value='draft-cheshire-dnsext-multicastdns-07.txt' />
-	</reference>
-
-	<reference anchor="DNS-SD" target="">
-		<front>
-		<title>DNS-Based Service Discovery</title>
-		<author initials="S." surname="Cheshire" fullname="Stuart Cheshire"><organization /></author>
-		<author initials="M." surname="Krochmal" fullname="Marc Krochmal"><organization /></author>
-		<date month="September" year="2008" />
-		</front>
-	<seriesInfo name='Internet-Draft' value='draft-cheshire-dnsext-multicastdns-07.txt' />
-	</reference>
-
-	<reference anchor="DNS-UL" target="">
-		<front>
-		<title>Dynamic DNS Update Leases</title>
-		<author initials="S." surname="Cheshire" fullname="Stuart Cheshire"><organization /></author>
-		<author initials="M." surname="Krochmal" fullname="Marc Krochmal"><organization /></author>
-		<author initials="K." surname="Sekar" fullname="Kiren Sekar"><organization /></author>
-		<date month="August" year="2007" />
-		</front>
-	<seriesInfo name='Internet-Draft' value='draft-sekar-dns-ul-01.txt' />
-	</reference>
-
-	<reference anchor="WoL" target="">
-		<front>
-		<title>Wake-on-LAN Magic Packet</title>
-		<author><organization /></author>
-		</front>
-	<seriesInfo name='' value='http://en.wikipedia.org/wiki/Wake-on-LAN' />
-	</reference>
-
-	</references>
+    </references>
 
 </back>
 

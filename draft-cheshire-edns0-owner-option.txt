@@ -345,11 +345,11 @@ Internet-Draft             EDNS0 OWNER Option                  July 2017
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
-              <http://www.rfc-editor.org/info/rfc2119>.
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC2671]  Vixie, P., "Extension Mechanisms for DNS (EDNS0)",
               RFC 2671, DOI 10.17487/RFC2671, August 1999,
-              <http://www.rfc-editor.org/info/rfc2671>.
+              <https://www.rfc-editor.org/info/rfc2671>.
 
 7.2.  Informative References
 
@@ -359,32 +359,32 @@ Internet-Draft             EDNS0 OWNER Option                  July 2017
    [RFC2136]  Vixie, P., Ed., Thomson, S., Rekhter, Y., and J. Bound,
               "Dynamic Updates in the Domain Name System (DNS UPDATE)",
               RFC 2136, DOI 10.17487/RFC2136, April 1997,
-              <http://www.rfc-editor.org/info/rfc2136>.
+              <https://www.rfc-editor.org/info/rfc2136>.
 
    [RFC3007]  Wellington, B., "Secure Domain Name System (DNS) Dynamic
               Update", RFC 3007, DOI 10.17487/RFC3007, November 2000,
-              <http://www.rfc-editor.org/info/rfc3007>.
+              <https://www.rfc-editor.org/info/rfc3007>.
 
    [RFC6762]  Cheshire, S. and M. Krochmal, "Multicast DNS", RFC 6762,
               DOI 10.17487/RFC6762, February 2013,
-              <http://www.rfc-editor.org/info/rfc6762>.
+              <https://www.rfc-editor.org/info/rfc6762>.
 
    [RFC6763]  Cheshire, S. and M. Krochmal, "DNS-Based Service
               Discovery", RFC 6763, DOI 10.17487/RFC6763, February 2013,
-              <http://www.rfc-editor.org/info/rfc6763>.
+              <https://www.rfc-editor.org/info/rfc6763>.
 
    [WoL]      "Wake-on-LAN Magic Packet",
-               http://en.wikipedia.org/wiki/Wake-on-LAN, April 1997.
+              http://en.wikipedia.org/wiki/Wake-on-LAN, April 1997.
 
 Authors' Addresses
 
    Stuart Cheshire
    Apple Inc.
-   1 Infinite Loop
+   One Apple Park Way
    Cupertino, California  95014
    USA
 
-   Phone: +1 408 974 3207
+   Phone: +1 (408) 996-1010
    Email: cheshire@apple.com
 
 
@@ -396,7 +396,7 @@ Internet-Draft             EDNS0 OWNER Option                  July 2017
 
    Marc Krochmal
    Apple Inc.
-   1 Infinite Loop
+   One Apple Park Way
    Cupertino, California  95014
    USA
 
